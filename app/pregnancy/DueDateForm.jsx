@@ -2,7 +2,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setStartDate } from "../redux/pregnancySlice";
+import { reset, setStartDate } from "../redux/pregnancySlice";
 
 const DueDateForm = () => {
   const form = useForm();
@@ -17,12 +17,13 @@ const DueDateForm = () => {
   };
 
   const onSubmit = (data) => {
-    const dueDate = data['due-date'];
+    const dueDate = data['dueDate'];
     const startDate = subtractDays(dueDate, 280);
 
     // Now you can use the startDate as needed.
-    console.log(`Start Date of Pregnancy: ${startDate}`);
+    console.log(startDate);
     dispatch(setStartDate(startDate))
+    // form.reset()
   };
 
   return (
@@ -31,7 +32,7 @@ const DueDateForm = () => {
         <div className="flex flex-col space-y-10">
           <div className="flex justify-between items-center ">
             <span className="font-semibold">Your Due Date</span>
-            <input type="date" id="due-date" className="px-2 py-2 rounded-md w-44" {...register("due-date")} />
+            <input type="date" id="dueDate" className="px-2 py-2 rounded-md w-44" {...register("dueDate")} />
           </div>
           <div className="flex justify-center">
             <button

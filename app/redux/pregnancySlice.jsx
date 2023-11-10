@@ -10,10 +10,13 @@ const pregnancySlice = createSlice({
     setStartDate: (state, action) => {
       state.startDate = action.payload;
     },
+    clearStartState: (state, action) => {
+        state.startDate = null
+    }
   },
 });
 
-export const { setStartDate } = pregnancySlice.actions;
+export const { setStartDate, clearStartState } = pregnancySlice.actions;
 export const selectStartDate = (state) => state.pregnancy.startDate;
 
 export default pregnancySlice.reducer;

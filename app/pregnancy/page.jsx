@@ -7,19 +7,22 @@ import LastPeriodForm from "./LastPeriodForm";
 import UltrasoundForm from "./UltrasoundForm";
 import ConceptionDateForm from "./ConceptionDateForm";
 import IvfTransferDateForm from "./IvfTransferDateForm";
-import { useSelector } from "react-redux";
-import { selectStartDate } from "../redux/pregnancySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearStartState, selectStartDate } from "../redux/pregnancySlice";
 
 const page = () => {
+  const dispatch = useDispatch();
+
   const [selectedOption, setSelectedOption] = useState("due-date");
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
+
+    dispatch(clearStartState())
   };
 
-  const startDate = useSelector(selectStartDate)
+  const startDate = useSelector(selectStartDate);
 
-  
   return (
     <div>
       <Navbar />
@@ -46,39 +49,38 @@ const page = () => {
               </select>
             </div>
 
-            {selectedOption === 'due-date' && (
-                <DueDateForm />
-            )}
+            {selectedOption === "due-date" && <DueDateForm />}
 
+            {selectedOption === "last-period" && <LastPeriodForm />}
 
-            {selectedOption === 'last-period' && (
-                <LastPeriodForm />
-            )}
+            {selectedOption === "ultrasound" && <UltrasoundForm />}
 
+            {selectedOption === "conception-date" && <ConceptionDateForm />}
 
-            {selectedOption === "ultrasound" && (
-                <UltrasoundForm />
-            )}
-
-
-            {selectedOption === "conception-date" && (
-                <ConceptionDateForm />
-            )}
-
-
-            {selectedOption === "ivf-transfer-date" && (
-                <IvfTransferDateForm />
-            )}
-
+            {selectedOption === "ivf-transfer-date" && <IvfTransferDateForm />}
           </div>
 
           <div className="px-7 py-7 border rounded-lg bg-[#a5dccd] hover:ease-in hover:bg-[#c4e9de] space-y-10 ">
             <span className="text-[#f68c90] font-semibold text-xl ">
               RESULT
             </span>
-            <div>
-                <span className="font-semibold">START DATE is on <span className="text-[#f68c90]">{startDate}</span> </span>
-            </div>
+            {selectedOption === "due-date" && (
+              <div>
+                <span className="font-semibold">
+                  START DATE is on{" "}
+                  <span className="text-[#f68c90]">{startDate}</span>{" "}
+                </span>
+              </div>
+            )}
+
+            {selectedOption === "last-period" && (
+                <div>
+                <span className="font-semibold">
+                  START DATE is on{" "}
+                  <span className="text-[#f68c90]">{startDate}</span>{" "}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
