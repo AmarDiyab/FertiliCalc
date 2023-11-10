@@ -2,6 +2,13 @@
 "use client";
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import DueDateForm from "./DueDateForm";
+import LastPeriodForm from "./LastPeriodForm";
+import UltrasoundForm from "./UltrasoundForm";
+import ConceptionDateForm from "./ConceptionDateForm";
+import IvfTransferDateForm from "./IvfTransferDateForm";
+import { useSelector } from "react-redux";
+import { selectStartDate } from "../redux/pregnancySlice";
 
 const page = () => {
   const [selectedOption, setSelectedOption] = useState("due-date");
@@ -10,11 +17,9 @@ const page = () => {
     setSelectedOption(e.target.value);
   };
 
-  const cycleLength = [
-    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44,
-  ];
+  const startDate = useSelector(selectStartDate)
 
+  
   return (
     <div>
       <Navbar />
@@ -22,7 +27,7 @@ const page = () => {
         <span className="text-2xl font-semibold text-[#f68c90]">
           PREGNANCY CALCULATOR
         </span>
-        <div className="grid grid-cols-1 gap-10 mt-10">
+        <div className="grid grid-cols-2 gap-10 mt-10">
           <div className="px-7 py-7 border rounded-lg bg-[#a5dccd] hover:ease-in hover:bg-[#c4e9de] space-y-10 ">
             <div className="flex justify-between items-center">
               <span className="font-semibold">Calculate Based On</span>
@@ -41,109 +46,38 @@ const page = () => {
               </select>
             </div>
 
-            {selectedOption === "due-date" && (
-              <div className="flex justify-between items-center">
-                <span className="font-semibold">Your Due Date</span>
-                <input type="date" className="px-2 py-2 rounded-md w-44" />
-              </div>
+            {selectedOption === 'due-date' && (
+                <DueDateForm />
             )}
 
-            {selectedOption === "last-period" && (
-              <div className="flex flex-col space-y-10">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">
-                    First Day of your Last Period
-                  </span>
-                  <input type="date" className="px-2 py-2 rounded-md w-44" />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">
-                    Average Length of your Cycles
-                  </span>
-                  <select className="px-2 py-2 rounded-md w-44">
-                    {cycleLength.map((option) => (
-                      <option key={option} value="option">
-                        {option} days
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+
+            {selectedOption === 'last-period' && (
+                <LastPeriodForm />
             )}
+
 
             {selectedOption === "ultrasound" && (
-              <div className="flex flex-col space-y-10">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">Ultrasound Date</span>
-                  <input type="date" className="px-2 py-2 rounded-md w-44" />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">
-                    Length of Pregnancy at the Time
-                  </span>
-                  <div className="flex space-x-5 appearance-none">
-                    <input
-                      type="numebr"
-                      placeholder="weeks"
-                      className="px-2 py-2 rounded-md w-44 appearance-none "
-                    />
-                    <input
-                      type="number"
-                      placeholder="days"
-                      className="px-2 py-2 rounded-md w-44 appearance-none "
-                    />
-                  </div>
-                </div>
-              </div>
+                <UltrasoundForm />
             )}
+
 
             {selectedOption === "conception-date" && (
-              <div className="flex justify-between items-center">
-                <span className="font-semibold">Conception Date</span>
-                <input type="date" className="px-2 py-2 rounded-md w-44" />
-              </div>
+                <ConceptionDateForm />
             )}
+
 
             {selectedOption === "ivf-transfer-date" && (
-              <div className="flex flex-col space-y-10">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">Transfer Date</span>
-                  <input type="date" className="px-2 py-2 rounded-md w-44" />
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">Embryo Age</span>
-                  <div className="flex appearance-none">
-                    <input
-                      type="radio"
-                      name="embryo-age"
-                      id="3"
-                      className="px-2 py-2 rounded-md  "
-                    />
-                    <label htmlFor="3" className="mr-5 ml-2">DAY 3</label>
-                    <input
-                      type="radio"
-                      id="5"
-                      name="embryo-age"
-                      className="px-2 py-2 rounded-md "
-                    />
-                    <label htmlFor="5" className="mr-5 ml-2">DAY 5</label>
-
-                    <input
-                      type="radio"
-                      id="6"
-                      name="embryo-age"
-                      className="px-2 py-2 rounded-md "
-                    />
-                    <label htmlFor="7" className="mr-5 ml-2">DAY 7</label>
-                  </div>
-                </div>
-              </div>
+                <IvfTransferDateForm />
             )}
 
-            <div className="flex justify-center">
-              <button className="px-2 py-2 rounded-md w-44 font-semibold bg-[#f68c90]">
-                CALCULATE
-              </button>
+          </div>
+
+          <div className="px-7 py-7 border rounded-lg bg-[#a5dccd] hover:ease-in hover:bg-[#c4e9de] space-y-10 ">
+            <span className="text-[#f68c90] font-semibold text-xl ">
+              RESULT
+            </span>
+            <div>
+                <span className="font-semibold">START DATE is on <span className="text-[#f68c90]">{startDate}</span> </span>
             </div>
           </div>
         </div>
