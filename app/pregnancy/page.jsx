@@ -64,23 +64,14 @@ const page = () => {
             <span className="text-[#f68c90] font-semibold text-xl ">
               RESULT
             </span>
-            {selectedOption === "due-date" && (
+            {/* {selectedOption === "due-date" && ( */}
               <div>
                 <span className="font-semibold">
                   START DATE is on{" "}
                   <span className="text-[#f68c90]">{startDate}</span>{" "}
                 </span>
               </div>
-            )}
-
-            {selectedOption === "last-period" && (
-                <div>
-                <span className="font-semibold">
-                  START DATE is on{" "}
-                  <span className="text-[#f68c90]">{startDate}</span>{" "}
-                </span>
-              </div>
-            )}
+            {/* )} */}
           </div>
         </div>
       </div>
